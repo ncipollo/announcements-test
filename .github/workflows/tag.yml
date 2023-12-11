@@ -1,0 +1,42 @@
+name: Releases
+
+on:
+  push:
+    tags:
+      - '*'
+      - '*/*'
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v1
+      - name: Tar text folder
+        run: tar -czf text.tar.gz text
+      - name: Publish release
+        id: release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifactErrorsFailBuild: false
+          artifacts: |
+            ${{ github.workspace }}/images/*.png
+            ${{ github.workspace }}/text/*.txt
+            text.tar.gz
+          artifactContentType: "raw"
+          bodyFile: "body.md"
+          discussionCategory: "Announcements"
+          draft: true
+          generateReleaseNotes: true
+          name: Bump Release
+          prerelease: false
+          replacesArtifacts: true
+          omitDraftDuringUpdate: true
+          skipIfReleaseExists: false
+      - name: Dump Release Outputs
+        env:
+          RELEASE_OUTPUT: ${{ toJson(steps.release.outputs) }}
+        run: echo "$RELEASE_OUTPUT"

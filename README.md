@@ -1,2 +1,2 @@
-# announcements-test
-Test repo for release action which has announcements as a discussion category
+# actions-playground
+Playground for testing actions
