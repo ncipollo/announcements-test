@@ -28,7 +28,7 @@ jobs:
             text.tar.gz
           artifactContentType: "raw"
           bodyFile: "body.md"
-          discussionCategory: "Announcements"
+          discussionCategory: "General"
           draft: false
           generateReleaseNotes: true
           name: Bump Release
